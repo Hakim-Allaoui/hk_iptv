@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:mbark_iptv/repository/api/api.dart';
+import 'package:mbark_iptv/second/screens/splash_page.dart';
+import 'package:mbark_iptv/second/utils/tools.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'helpers/helpers.dart';
 import 'logic/blocs/auth/auth_bloc.dart';
@@ -27,12 +29,20 @@ void main() async {
     MobileAds.instance.initialize();
   }
 
-  runApp(MyApp(
-    iptv: IpTvApi(),
-    authApi: AuthApi(),
-    watchingLocale: WatchingLocale(),
-    favoriteLocale: FavoriteLocale(),
-  ));
+  var check = await Tools.checkApp();
+
+  if (!check) {
+    runApp(const MySecondApp());
+  } else {
+    runApp(
+      MyApp(
+        iptv: IpTvApi(),
+        authApi: AuthApi(),
+        watchingLocale: WatchingLocale(),
+        favoriteLocale: FavoriteLocale(),
+      ),
+    );
+  }
 }
 
 class MyApp extends StatefulWidget {
@@ -40,6 +50,7 @@ class MyApp extends StatefulWidget {
   final AuthApi authApi;
   final WatchingLocale watchingLocale;
   final FavoriteLocale favoriteLocale;
+
   const MyApp(
       {super.key,
       required this.iptv,
@@ -63,7 +74,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Shortcuts(
       shortcuts: <LogicalKeySet, Intent>{
-        LogicalKeySet(LogicalKeyboardKey.select): const ActivateIntent()
+        LogicalKeySet(LogicalKeyboardKey.select): const ActivateIntent(),
+        LogicalKeySet(LogicalKeyboardKey.enter): const ActivateIntent(),
       },
       child: MultiBlocProvider(
         providers: [
@@ -100,7 +112,7 @@ class _MyAppState extends State<MyApp> {
         child: ResponsiveSizer(
           builder: (context, orient, type) {
             return GetMaterialApp(
-              title: 'Azul IPTV',
+              title: kAppName,
               theme: MyThemApp.themeData(context),
               debugShowCheckedModeBanner: false,
               initialRoute: "/",
@@ -133,6 +145,23 @@ class _MyAppState extends State<MyApp> {
           },
         ),
       ),
+    );
+  }
+}
+
+class MySecondApp extends StatefulWidget {
+  const MySecondApp({super.key});
+
+  @override
+  State<MySecondApp> createState() => _MySecondAppState();
+}
+
+class _MySecondAppState extends State<MySecondApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "app",
+      home: const SplashPage(),
     );
   }
 }

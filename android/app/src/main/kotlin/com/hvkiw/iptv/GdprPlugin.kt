@@ -1,4 +1,4 @@
-package com.iptv.azul
+package com.hvkiw.iptv
 
 
 import android.app.Activity

@@ -49,7 +49,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             const SizedBox(height: 10),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(40.0),
                 child: Row(
                   children: [
                     Expanded(
@@ -133,7 +133,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         },
                       ),
                     ),
-                    SizedBox(width: 2.w),
+                    SizedBox(width: 4.w),
                     SizedBox(
                       width: 20.w,
                       child: Column(
@@ -192,6 +192,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
               ],
             ),
+            SizedBox(height: 10.0,),
             AdmobWidget.getBanner(),
           ],
         ),

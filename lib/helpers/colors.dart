@@ -5,8 +5,8 @@ const Color kColorPrimaryDark = Color(0xFF9E47FF);
 
 const Color kColorFocus = Color(0xFFBE7DFB);
 
-const Color kColorBack = Color(0xFF262435);
-const Color kColorBackDark = Color(0xFF1e182c);
+const Color kColorBack = Color(0xFF16181E);
+const Color kColorBackDark = Color(0xFF21242D);
 
 const Color kColorCardLight = Color(0xFF2D2A3B);
 const Color kColorCardDark = Color(0xFF4C4958);

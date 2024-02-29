@@ -1,4 +1,4 @@
-package com.iptv.azul
+package com.hvkiw.iptv
 
 import android.os.Bundle
 import io.flutter.embedding.android.FlutterActivity
