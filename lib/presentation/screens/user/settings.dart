@@ -157,7 +157,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Row(
+                  /*Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -170,7 +170,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       InkWell(
                         onTap: () async {
                           await launchUrlString(
-                            "https://mouadzizi.me",
+                            kContact,
                             mode: LaunchMode.externalApplication,
                           );
                         },
@@ -183,7 +183,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       ),
                     ],
-                  ),
+                  ),*/
                 ],
               );
             }

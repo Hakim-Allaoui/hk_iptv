@@ -1,11 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:mbark_iptv/firebase_options.dart';
 import 'package:mbark_iptv/repository/api/api.dart';
-import 'package:mbark_iptv/second/screens/splash_page.dart';
+import 'package:mbark_iptv/second/models/remote_config_model.dart';
+import 'package:mbark_iptv/second/screens/start_page.dart';
 import 'package:mbark_iptv/second/utils/tools.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'helpers/helpers.dart';
@@ -20,20 +23,35 @@ import 'logic/cubits/video/video_cubit.dart';
 import 'logic/cubits/watch/watching_cubit.dart';
 import 'presentation/screens/screens.dart';
 
+RemoteConfigModel remoteConfigModel = RemoteConfigModel();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await Wakelock.enable();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   await GetStorage.init();
   await GetStorage.init("favorites");
+
+  remoteConfigModel.buttonText = await Tools.fetchRemoteConfig("button_text");
+  remoteConfigModel.link = await Tools.fetchRemoteConfig("link");
+  remoteConfigModel.appColor = await Tools.fetchRemoteConfig("app_color");
+  remoteConfigModel.showAds = await Tools.fetchBoolRemoteConfig("show_ads");
+  remoteConfigModel.approved = await Tools.fetchBoolRemoteConfig("approved");
+  remoteConfigModel.bg_image = await Tools.fetchRemoteConfig("bg_image");
+  remoteConfigModel.logo = await Tools.fetchRemoteConfig("logo");
+  remoteConfigModel.appName = await Tools.fetchRemoteConfig("app_name");
+
+  showAds = remoteConfigModel.showAds ?? false;
+
   if (showAds) {
     MobileAds.instance.initialize();
   }
 
-  var check = await Tools.checkApp();
-
-  if (!check) {
-    runApp(const MySecondApp());
-  } else {
+  if (remoteConfigModel.approved ?? false) {
     runApp(
       MyApp(
         iptv: IpTvApi(),
@@ -42,6 +60,8 @@ void main() async {
         favoriteLocale: FavoriteLocale(),
       ),
     );
+  } else {
+    runApp(const MySecondApp());
   }
 }
 
@@ -159,9 +179,10 @@ class MySecondApp extends StatefulWidget {
 class _MySecondAppState extends State<MySecondApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "app",
-      home: const SplashPage(),
+      home: SplashPage(),
     );
   }
 }

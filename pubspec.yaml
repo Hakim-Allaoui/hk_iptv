@@ -48,6 +48,20 @@ dependencies:
 
   #Reskin
   flutter_inappwebview: ^6.0.0
+  firebase_core: ^2.25.5
+  firebase_remote_config: ^4.3.15
+
+
+  icons_launcher: ^2.1.7
+
+
+icons_launcher:
+  image_path: "C:/Users/hp/Desktop/Icon.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
 
 
 dependency_overrides:

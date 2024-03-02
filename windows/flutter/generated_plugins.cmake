@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   azul_envato_checker
+  firebase_core
   screen_brightness_windows
   url_launcher_windows
 )

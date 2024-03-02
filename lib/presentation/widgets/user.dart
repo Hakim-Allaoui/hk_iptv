@@ -114,9 +114,8 @@ class _IntroImageAnimatedState extends State<IntroImageAnimated> {
 
   @override
   Widget build(BuildContext context) {
-    final height = getSize(context).height / (widget.isTv ? 1 : 2);
+    final height = getSize(context).height;
     return Stack(
-      alignment: Alignment.center,
       children: [
         SizedBox(
           width: getSize(context).width,
@@ -128,6 +127,21 @@ class _IntroImageAnimatedState extends State<IntroImageAnimated> {
               kImageIntro,
               fit: BoxFit.cover,
               width: getSize(context).width + 140,
+            ),
+          ),
+        ),
+        Container(
+          width: getSize(context).width,
+          height: height,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.black, Colors.transparent],
+              begin: Alignment.bottomCenter,
+              end: AlignmentDirectional.topCenter,
+              stops: [
+                0.3,
+                0.6
+              ]
             ),
           ),
         ),
@@ -146,22 +160,26 @@ class _IntroImageAnimatedState extends State<IntroImageAnimated> {
           ),
         ),
         if (!widget.isTv)
-          Column(
-            children: [
-              Image.asset(
-                kIconSplash,
-                width: 40.w,
-                height: 40.w,
-              ),
-              Text(
-                kAppName.toUpperCase(),
-                textAlign: TextAlign.center,
-                style: Get.textTheme.headlineLarge!.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+          Center(
+            child: Column(
+              children: [
+                SizedBox(height: height / 3,),
+                Image.asset(
+                  kIconSplash,
+                  width: 40.w,
+                  height: 40.w,
                 ),
-              ),
-            ],
+                SizedBox(height: 20.0),
+                Text(
+                  kAppName.toUpperCase(),
+                  textAlign: TextAlign.center,
+                  style: Get.textTheme.headlineLarge!.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
           ),
       ],
     );

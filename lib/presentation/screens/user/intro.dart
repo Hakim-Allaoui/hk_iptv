@@ -15,14 +15,16 @@ class _IntroScreenState extends State<IntroScreen> {
         width: getSize(context).width,
         height: getSize(context).height,
         decoration: kDecorBackground,
-        child: Column(
+        child: Stack(
           children: [
             const IntroImageAnimated(),
-            Expanded(
+            Align(
+              alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.only(
                     left: 10, right: 10, top: 15, bottom: 10),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       "Watch films anywhere\nand anytime",
@@ -44,7 +46,7 @@ class _IntroScreenState extends State<IntroScreen> {
                         fontSize: 15.sp,
                       ),
                     ),
-                    const Spacer(),
+                    SizedBox(height: 8.h),
                     CardTallButton(
                       label: "Add User",
                       onTap: () => Get.toNamed(screenRegister),

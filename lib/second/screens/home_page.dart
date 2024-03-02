@@ -6,6 +6,7 @@ import 'dart:collection';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:mbark_iptv/main.dart';
 import 'package:mbark_iptv/second/utils/tools.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -87,9 +88,12 @@ class HomePageState extends State<HomePage> {
             ),
           ),
           centerTitle: true,
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: Color(int.parse("0xff${remoteConfigModel.appColor}")),
           elevation: 0.0,
-          leading: const SizedBox(),
+          //leading: const SizedBox(),
+          actions: [
+
+          ],
         ),
         body: SafeArea(
           child: Column(
